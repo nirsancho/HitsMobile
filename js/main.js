@@ -198,7 +198,7 @@ app = (function ($, app, document) {
 
     app.storage = {
         isInit: false,
-        db_name: "spark_db",
+        db_name: "hits_db",
         database: {},
         set: function (key, value) {
             if (!app.storage.isInit) {
