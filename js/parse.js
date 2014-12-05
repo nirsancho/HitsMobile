@@ -35,7 +35,7 @@ app = (function ($, app, document) {
                     app.log("creating " + name);
                     var o = new Config();
                     o.save({
-                        name: backup_name_prefix + "_" + (new Date()).toISOString(),
+                        name: backup_name_prefix,
                         "value": val
                     });
                 }
@@ -44,7 +44,7 @@ app = (function ($, app, document) {
                 app.log("creating " + name);
                 var o = new Config();
                 o.save({
-                    name: backup_name_prefix + "_" + (new Date()).toISOString(),
+                    name: backup_name_prefix,
                     "value": val
                 });
             }
