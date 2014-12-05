@@ -42,9 +42,9 @@
             return (app.loader.is_localhost ? "../js/" : "http://unusid.com/spark/js/");
         })();
 
-        app.loader.scripts = ["lang-es.js", "user.js", "contacts.js", "main.js", "content.js", "parse.js", "../web/js/webapp.js", "../web/js/nicEdit.js"];
+        app.loader.scripts = []; //        ["lang-es.js", "user.js", "contacts.js", "main.js", "content.js", "parse.js", "../web/js/webapp.js", "../web/js/nicEdit.js"];
         app.loader.callback = function () {
-            app.webinit();
+            //            app.webinit();
         };
     </script>
 
@@ -54,7 +54,20 @@
     <script type="text/javascript" charset="utf-8" src="js/moment.js"></script>
 
     <script type="text/javascript" charset="utf-8" src="../js/loader.js"></script>
-    <!--    <script type="text/javascript" charset="utf-8" src="js/webapp.js"></script>-->
+    <script type="text/javascript" charset="utf-8" src="../js/loader.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/lang-es.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/content.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/contacts.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/md5.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/parse.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/main.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/nicEdit.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/webapp.js"></script>
+
+    <script>
+        app.webinit();
+    </script>
 
     <style>
         label {
@@ -67,8 +80,9 @@
             <h1 data-role="page-title">Contact browser</h1>
             <a data-text="webapp-editor" href="#page-editor" class="ui-btn"></a>
         </div>
-        <div  style="margin:15px">
-            <b>Users:</b> Allowed:<span data-text="user_count_allowed"></span>, Total: <span data-text="user_count_total"></span></br>
+        <div style="margin:15px">
+            <b>Users:</b> Allowed:<span data-text="user_count_allowed"></span>, Total: <span data-text="user_count_total"></span>
+            </br>
             <b>Contacts:</b> Allowed:<span data-text="contact_count_allowed"></span>, Total: <span data-text="contact_count_total"></span>
         </div>
         <div data-enhance="false">

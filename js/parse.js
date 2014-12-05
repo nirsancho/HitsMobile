@@ -20,7 +20,39 @@ app = (function ($, app, document) {
         });
     };
 
+    app.config.backup = function (name, val) {
+        var Config = Parse.Object.extend("Config");
+        var query = new Parse.Query(Config);
+
+        var backup_name_prefix = name + "_" + md5(JSON.stringify(val));
+        query.startsWith("name", backup_name_prefix);
+
+        query.first({
+            success: function (result) {
+                if (result) {
+                    // do nothing
+                } else {
+                    app.log("creating " + name);
+                    var o = new Config();
+                    o.save({
+                        name: backup_name_prefix + "_" + (new Date()).toISOString(),
+                        "value": val
+                    });
+                }
+            },
+            error: function (error) {
+                app.log("creating " + name);
+                var o = new Config();
+                o.save({
+                    name: backup_name_prefix + "_" + (new Date()).toISOString(),
+                    "value": val
+                });
+            }
+        });
+    };
+
     app.config.set = function (name, val, callback) {
+        app.config.backup(name, val);
         var Config = Parse.Object.extend("Config");
         var query = new Parse.Query(Config);
         query.equalTo("name", name);

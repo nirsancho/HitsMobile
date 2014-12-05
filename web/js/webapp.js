@@ -130,7 +130,7 @@ app = (function ($, app, document) {
                     }
 
                     var status = "<input class='user-status' data-index='" + index + "' value='" + (app.user.userData[r1.id] ? (app.user.userData[r1.id].get("status") || "") : "") + "'/>";
-                    var download = "<button class='user-download' data-index='" + index + "' data-text='general-download'></button>";
+                    var download = r1.get("contacts_allowed") ? "<button class='user-download' data-index='" + index + "' data-text='general-download'></button>" : "";
                     var remove = r1.get("username") == "admin" ? "" : "<button class='user-remove' data-index='" + index + "' data-text='general-remove'></button>";
                     var save = "<button class='user-save' data-index='" + index + "' data-text='general-save'></button>";
                     var cancel = "<button class='user-cancel' data-index='" + index + "' data-text='general-cancel'></button>";
@@ -145,7 +145,7 @@ app = (function ($, app, document) {
                 $("[data-text=user_count_total]").text(user_count);
                 $("[data-text=contact_count_total]").text(contact_count);
 
-              //  $('#users').parent().prepend("<div style='margin:10px'><b>Total users: </b>" + user_count + ", <b>Total Contacts: </b>" + contact_count + "</div>");
+                //  $('#users').parent().prepend("<div style='margin:10px'><b>Total users: </b>" + user_count + ", <b>Total Contacts: </b>" + contact_count + "</div>");
 
                 if (app.usertable) {
                     $('#users').DataTable().destroy();
@@ -345,7 +345,8 @@ app = (function ($, app, document) {
                 _pass = prompt("password 2");
             }
 
-            Parse.User.logIn("admin", _pass).done(function () {
+            Parse.User.logIn("admin", _pass).done(function (user) {
+                app.user.set_current_user(user);
                 app.storage.set("pass", _pass);
                 app.user.getall();
             }).fail(function () {
