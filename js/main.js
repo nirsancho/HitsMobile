@@ -119,7 +119,7 @@ app = (function ($, app, document) {
         } else {
             app.currentPage = $(event.target).attr("id");
         }
-        $("body").css("background", "#bbbbbb");
+        $("body").css("background", "#f9f9f9");
         app.compile();
         return true;
     };
