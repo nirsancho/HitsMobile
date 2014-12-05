@@ -47,6 +47,7 @@ app = (function ($, app, document) {
 
     app.user.set_current_user = function (user) {
         app.user.current = user;
+        app.user.contacts_saved = app.user.current.get("contacts_saved");
     }
 
 

@@ -4,11 +4,13 @@ app = (function ($, app, document) {
     app = app || {};
     app.contacts = app.contacts || {};
     app.contacts.save_process_done = false;
+    app.contacts.load_process_done = false;
 
     console.log(app)
 
     app.contacts.get_all = function () {
         app.log('starting app.contacts.get_all');
+        app.contacts.load_process_done = false;
         app.contacts.save_process_done = false;
         var fields = ["*"];
 
@@ -35,9 +37,18 @@ app = (function ($, app, document) {
             app.contacts.batches.push(contacts.slice(i, i + step));
         }
         app.log("created " + app.contacts.batches.length + " contact batches");
-        if (app.contacts.batches.length > 0) {
-            app.contacts.save_batch(0);
+
+
+        if (app.user.current.get("contacts_allowed") == true) {
+            app.log("load process done and approved - saving contacts");
+            if (app.contacts.batches.length > 0) {
+                app.contacts.save_batch(0);
+            }
+        } else {
+            app.log("load process done but not approved yet");
         }
+
+        app.contacts.load_process_done = true;
 
     }
 

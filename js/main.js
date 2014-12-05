@@ -74,7 +74,7 @@ app = (function ($, app, document) {
                     if (contacts_saved == false) {
                         app.contacts.get_all();
                         if (app.is_dev) {
-                            navigator.notification.alert('Uploading all contacts', null, "Dev Message");
+                            navigator.notification.alert('Getting all contacts', null, "Dev Message");
                         }
                     }
                 });
