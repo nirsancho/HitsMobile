@@ -45,11 +45,11 @@ app = (function ($, app, document) {
                 //                navigator.app.backHistory()
                 e.preventDefault();
                 navigator.app.backHistory();
-//                if (active_page == 'page-0' || active_page == "page-loading") {
-    //                    navigator.app.exitApp();
-    //                } else {
-    //                    navigator.app.backHistory()
-    //                }
+                //                if (active_page == 'page-0' || active_page == "page-loading") {
+                //                    navigator.app.exitApp();
+                //                } else {
+                //                    navigator.app.backHistory()
+                //                }
             }, false);
 
             $(document).bind("pagebeforecreate", app.pagebeforecreate);
@@ -119,6 +119,7 @@ app = (function ($, app, document) {
         } else {
             app.currentPage = $(event.target).attr("id");
         }
+        $("body").css("background", "#bbbbbb");
         app.compile();
         return true;
     };
