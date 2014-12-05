@@ -44,11 +44,12 @@ app = (function ($, app, document) {
                 app.log("BackButton: " + active_page)
                 //                navigator.app.backHistory()
                 e.preventDefault();
-                if (active_page == 'page-0' || active_page == "page-loading") {
-                    navigator.app.exitApp();
-                } else {
-                    navigator.app.backHistory()
-                }
+                navigator.app.backHistory();
+//                if (active_page == 'page-0' || active_page == "page-loading") {
+    //                    navigator.app.exitApp();
+    //                } else {
+    //                    navigator.app.backHistory()
+    //                }
             }, false);
 
             $(document).bind("pagebeforecreate", app.pagebeforecreate);
