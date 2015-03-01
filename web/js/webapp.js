@@ -276,7 +276,7 @@ app = (function ($, app, document) {
     app.edit_page = function (id, page) {
         $("#page-title").val(page.title || "approval");
         $("#page-image").val(page.image || "");
-        $("#editor-page-enabled").val(app.content.pages[i].enabled || true ? "on" : "off").slider("refresh");
+        $("#editor-page-enabled").val(page.enabled || true ? "on" : "off").slider("refresh");
         app.editor.setContent(page.body || "");
 
         app.currentPage = id;
