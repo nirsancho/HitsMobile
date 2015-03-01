@@ -134,7 +134,7 @@ app = (function ($, app, document) {
         var page_thankyou = pages[pages.length - 1];
 
         for (var page = 0; page < pages.length - 2; page++) {
-            if (pages[page].enable) {
+            if (pages[page].enabled) {
                 var next_page = (page < pages.length - 3) ? '#page-' + (page + 1.0) : '#page-approval';
                 app.content.create_page("page-" + page, pages[page].title, pages[page].body, next_page, pages[page].image);
             }
