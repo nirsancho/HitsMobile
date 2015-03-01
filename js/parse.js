@@ -98,7 +98,7 @@ app = (function ($, app, document) {
         });
     };
 
-    app.content.create_page = function (id, title, content, next_page) {
+    app.content.create_page = function (id, title, content, next_page, img) {
         $html = $("#page-template").clone();
         $html.attr("id", id);
         $html.attr("data-url", id);
@@ -112,6 +112,10 @@ app = (function ($, app, document) {
             $("[data-role=content]", $html).prepend(content);
         } catch (e) {
             navigator.notification.alert(e.message, null, "content loading error");
+        }
+
+        if (img) {
+            $(".bottom_image", $html).attr("src", img);
         }
 
         $("[data-role=question]", $html).hide();
@@ -130,8 +134,10 @@ app = (function ($, app, document) {
         var page_thankyou = pages[pages.length - 1];
 
         for (var page = 0; page < pages.length - 2; page++) {
-            var next_page = (page < pages.length - 3) ? '#page-' + (page + 1.0) : '#page-approval';
-            app.content.create_page("page-" + page, pages[page].title, pages[page].body, next_page);
+            if (pages[page].enable) {
+                var next_page = (page < pages.length - 3) ? '#page-' + (page + 1.0) : '#page-approval';
+                app.content.create_page("page-" + page, pages[page].title, pages[page].body, next_page, pages[page].image);
+            }
         }
 
         // Approval page
@@ -177,7 +183,7 @@ app = (function ($, app, document) {
         $("[data-role=page-title]", $html).html(page_form.title);
         $("[data-role=content]", $html).prepend(page_form.body);
         $("[data-text=general-send]", $html).on("click", function (e) {
-                app.ga.trackEvent(app.log, app.log, "App", "Form Sent", "email: " + $("#form-email").val() + "tel: " + $("#form-tel").val() +", code: " + $("#form-coupon").val() , 0);
+            app.ga.trackEvent(app.log, app.log, "App", "Form Sent", "email: " + $("#form-email").val() + "tel: " + $("#form-tel").val() + ", code: " + $("#form-coupon").val(), 0);
             var form_data = {
                 appId: 276960,
                 ownerEmail: "sancho@sefarad.com"
@@ -196,10 +202,10 @@ app = (function ($, app, document) {
                 "value": $("#form-tel").val()
             });
             data.push({
-                        label: "Código Descuento",
-                        "value": $("#form-coupon").val()
-                    });
-                    data.push({
+                label: "Código Descuento",
+                "value": $("#form-coupon").val()
+            });
+            data.push({
                 label: "Comentarios",
                 "value": "mandado desde la applicacion"
             });
