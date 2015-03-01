@@ -275,6 +275,7 @@ app = (function ($, app, document) {
     }
     app.edit_page = function (id, page) {
         $("#page-title").val(page.title || "approval");
+        $("#page-image").val(page.image || "");
         app.editor.setContent(page.body || "");
         app.currentPage = id;
         if (id == "approval") {
@@ -290,6 +291,7 @@ app = (function ($, app, document) {
         if (i < app.content.pages.length) {
             app.log("saving page " + app.currentPage);
             app.content.pages[i].title = $("#page-title").val();
+            app.content.pages[i].image = $("#page-image").val();
             app.content.pages[i].body = content;
         } else {
             app.log("saving approval");
