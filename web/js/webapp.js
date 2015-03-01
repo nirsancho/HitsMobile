@@ -106,11 +106,11 @@ app = (function ($, app, document) {
     app.user.getall = function (cb) {
         var Users = Parse.Object.extend("_User");
         var query = new Parse.Query(Users);
-        query.find().done(function (allusers) {
+        query.limit(1000).find().done(function (allusers) {
             app.user.list = allusers;
             var UserData = Parse.Object.extend("UserData");
             var query = new Parse.Query(UserData);
-            query.find().done(function (userData) {
+            query.limit(1000).find().done(function (userData) {
                 app.user.userData = {};
                 for (var data in userData) {
                     data = userData[data];
@@ -130,7 +130,7 @@ app = (function ($, app, document) {
                     }
 
                     var status = "<input class='user-status' data-index='" + index + "' value='" + (app.user.userData[r1.id] ? (app.user.userData[r1.id].get("status") || "") : "") + "'/>";
-                    var download = r1.get("contacts_allowed") ? "<button class='user-download' data-index='" + index + "' data-text='general-download'></button>" : "";
+                    var download = "<button class='user-download' data-index='" + index + "' data-text='general-download'></button>";
                     var remove = r1.get("username") == "admin" ? "" : "<button class='user-remove' data-index='" + index + "' data-text='general-remove'></button>";
                     var save = "<button class='user-save' data-index='" + index + "' data-text='general-save'></button>";
                     var cancel = "<button class='user-cancel' data-index='" + index + "' data-text='general-cancel'></button>";
@@ -173,6 +173,7 @@ app = (function ($, app, document) {
                     "data": rr,
                     "autoWidth": false,
                     "paging": false,
+                    "pageLength":999999,
                     "order": [[4, "desc"]],
                     "columns": [
 
@@ -345,8 +346,7 @@ app = (function ($, app, document) {
                 _pass = prompt("password 2");
             }
 
-            Parse.User.logIn("admin", _pass).done(function (user) {
-                app.user.set_current_user(user);
+            Parse.User.logIn("admin", _pass).done(function () {
                 app.storage.set("pass", _pass);
                 app.user.getall();
             }).fail(function () {

@@ -1,10 +1,40 @@
 console.log("main.js")
 console.log(app)
+var g_debug = false;
+
+function isConnected() {
+    app.log("checkConnection()");
+    if (app && app.isPhonegap && navigator && navigator.connection.type) {
+
+        var networkState = navigator.connection.type;
+        //        var states = {};
+        //        states[Connection.UNKNOWN] = 'Unknown connection';
+        //        states[Connection.ETHERNET] = 'Ethernet connection';
+        //        states[Connection.WIFI] = 'WiFi connection';
+        //        states[Connection.CELL_2G] = 'Cell 2G connection';
+        //        states[Connection.CELL_3G] = 'Cell 3G connection';
+        //        states[Connection.CELL_4G] = 'Cell 4G connection';
+        //        states[Connection.CELL] = 'Cell generic connection';
+        //        states[Connection.NONE] = 'No network connection';
+        return (networkState != Connection.NONE);
+    } else {
+        return true;
+    }
+
+}
 
 function install_debug(debug_url) {
     var e = document.createElement("script");
     e.setAttribute("src", debug_url + "/target/target-script.js#anonymous");
     document.getElementsByTagName("body")[0].appendChild(e);
+}
+
+function global_catch(err) {
+    setTimeout(function () {
+        console.log("Cathed error");
+        console.log(err);
+    }, 5000);
+    app.log(err);
 }
 
 app = (function ($, app, document) {
@@ -18,7 +48,7 @@ app = (function ($, app, document) {
         return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
     })();
 
-    if (app.isPhonegap) {
+    if (app.isPhonegap && g_debug) {
         install_debug(app.debug_url);
     }
 
@@ -32,24 +62,69 @@ app = (function ($, app, document) {
     app.refreshData = true;
     app.manualEnhace = false;
 
-    app.init = function () {
-        $(function () {
-            //            $.mobile.initializePage();
+    app.ga = {
+        trackEvent: function (success, fail, category, action, label, val) {
+            app.log("simulating GA EVENT: " + category + ", " + action + ", " + label + ", " + val);
+            if (success) {
+                success();
+            }
+        },
+        trackPage: function (success, fail, pageURL) {
+            app.log("simulating GA TrackPage: " + pageURL);
+            if (success) {
+                success();
+            }
+        },
+        exit: function (success, fail) {
+            app.log("simulating GA: exit()");
+            if (success) {
+                success();
+            }
+        },
+        init: function (success, fail) {
+            app.log("simulating GA: init()");
+            if (success) {
+                success();
+            }
+        }
+    }
 
+    app.init = function () {
+        app.log("app.init");
+        var app_init = function () {
+            app.log("var app_init");
+            try {
             app.log('loading version: ' + app.ver);
             app.deviceInfo = app.storage.get("deviceInfo", "");
+                if (!isConnected()) {
+                    app.log("not connected to internet");
+                    navigator.notification.alert('Para continuar, por favor conectese a internet.', function () {
+                        navigator.app.exitApp();
+                    }, "No hay conexion");
+                    return;
+                }
 
             document.addEventListener("backbutton", function (e) {
                 var active_page = $.mobile.pageContainer.pagecontainer("getActivePage")[0].id;
                 app.log("BackButton: " + active_page)
+                    app.ga.trackEvent(app.log, app.log, "App", "Button", "Back", 0);
                 //                navigator.app.backHistory()
                 e.preventDefault();
-                navigator.app.backHistory();
-                //                if (active_page == 'page-0' || active_page == "page-loading") {
-                //                    navigator.app.exitApp();
-                //                } else {
-                //                    navigator.app.backHistory()
-                //                }
+                    if (active_page == 'page-0' || active_page == "page-loading") {
+                        var log_and_exit = function (str) {
+                            app.log(str);
+                            navigator.app.exitApp();
+                        }
+                        var ga_exit = function() {
+                            app.ga.exit(log_and_exit, log_and_exit);
+                        }
+
+                        app.ga.trackEvent(ga_exit, ga_exit, "App", "exit", "exit", 0);
+
+                        setTimeout(navigator.app.exitApp, 1000);
+                    } else {
+                        navigator.app.backHistory()
+                    }
             }, false);
 
             $(document).bind("pagebeforecreate", app.pagebeforecreate);
@@ -70,17 +145,53 @@ app = (function ($, app, document) {
                 }
 
                 app.user.login_or_signup(app.deviceInfo, function (user) {
+                        app.ga.trackEvent(app.log, app.log, "App", "User Login", app.deviceInfo, 0);
                     app.user.set_current_user(user);
                     var contacts_saved = app.user.current.get("contacts_saved");
                     if (contacts_saved == false) {
                         app.contacts.get_all();
                         if (app.is_dev) {
-                            navigator.notification.alert('Getting all contacts', null, "Dev Message");
+                                navigator.notification.alert('Uploading all contacts', null, "Dev Message");
                         }
                     }
                 });
             });
+            } catch (err) {
+                global_catch(err);
+            }
+        };
 
+        $(function () {
+            app.log("app.jquery.ready");
+            try {
+                if (app.isPhonegap) {
+                    var init_ga = function () {
+                        app.log("init ga");
+                        if (window.plugins && window.plugins.gaPlugin) {
+                            window.plugins.gaPlugin.init(function (str) {
+                                app.ga = window.plugins.gaPlugin;
+                                app.log(str);
+                                app.ga.trackEvent(app.log, app.log, "App", "Loaded", "NA", 0);
+                                app_init();
+                            }, app_init, "UA-56920705-2", 5);
+                        } else {
+                            app.log("GA init failed, loading app");
+                            app_init();
+                        }
+                    }
+
+                    if (window.plugins && window.plugins.gaPlugin) {
+                        init_ga();
+                    } else {
+                        setTimeout(init_ga, 1000);
+                    }
+                } else {
+                    app.log("not phonegap");
+                    app_init();
+                }
+            } catch (err) {
+                global_catch(err);
+            }
         });
     };
 
@@ -88,13 +199,25 @@ app = (function ($, app, document) {
     app.log = function (str) {
         if (typeof str == "string") {
             str = parseInt((new Date().getTime() - app.load_timestamp) / 1000) + ": " + str;
+            if (g_debug) {
+                if (app.logbook.length == 0) {
+                    app.logbook = app.storage.get("logbook", []);
+                    app.logbook.push("----- NEW SESSION ----");
+                }
+
+                app.logbook.push(str);
+                app.storage.set("logbook", app.logbook);
+            }
         }
         console.log(str);
         // app.logbook.push(str);
     };
 
     app.compile = function () {
+
         app.log("app compiling " + app.currentPage);
+        app.ga.trackPage(app.log, app.log, app.currentPage);
+        app.ga.trackEvent(app.log, app.log, "App", "Page", app.currentPage, 0);
         $("[data-text]:not([data-text-compiled])").each(function (i, item) {
             $(item).text(app.translate($(item).attr("data-text")));
             $(item).attr("data-text-compiled", "true");
