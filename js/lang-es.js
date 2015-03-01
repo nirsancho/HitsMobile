@@ -34,7 +34,7 @@ app = (function (app) {
 
         "editor-page-title": "Titulo de Pajina",
         "editor-page-content": "Contenido de Pajina",
-        "editor-page-image": "imajen",
+        "editor-page-image": "Imajen (URL)",
 
         "webapp-contactos": "Ver Contactos",
         "webapp-editor": "Ver Editor",
