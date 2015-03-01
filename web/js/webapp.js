@@ -331,9 +331,11 @@ app = (function ($, app, document) {
                 if (sel < pages.length) {
                     app.edit_page(sel, pages[sel]);
                     $(".approval-only").hide();
+                    $(".pages-only").show();
                 } else {
                     app.edit_page("approval", approval);
                     $(".approval-only").show();
+                    $(".pages-only").hide();
                 }
 
             });
