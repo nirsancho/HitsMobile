@@ -292,6 +292,7 @@ app = (function ($, app, document) {
             app.log("saving page " + app.currentPage);
             app.content.pages[i].title = $("#page-title").val();
             app.content.pages[i].image = $("#page-image").val();
+            app.content.pages[i].enabled = $("#editor-page-enabled").val() == "on";
             app.content.pages[i].body = content;
         } else {
             app.log("saving approval");
