@@ -313,7 +313,7 @@ app = (function ($, app, document) {
             new nicEditor({
                 fullPanel: true,
                 iconsPath: "js/nicEditorIcons.gif",
-                uploadURI: "../../nicUpload.php"
+                uploadURI: "../nicUpload.php"
             }).panelInstance('page-content');
             app.editor = nicEditors.findEditor('page-content');
             $(".nicEdit-panelContain").parent().css("width", "100%").next().css("width", "100%").children().first().css("width", "100%");
