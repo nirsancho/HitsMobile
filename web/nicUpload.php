@@ -14,10 +14,10 @@
  * @version: 0.9.0
  */
 
-define('NICUPLOAD_PATH', '../images'); // Set the path (relative or absolute) to
+define('NICUPLOAD_PATH', '/css'); // Set the path (relative or absolute) to
                                       // the directory to save image files
 
-define('NICUPLOAD_URI', '../images');   // Set the URL (relative or absolute) to
+define('NICUPLOAD_URI', '/css');   // Set the URL (relative or absolute) to
                                       // the directory defined above
 
 $nicupload_allowed_extensions = array('jpg','jpeg','png','gif','bmp');
