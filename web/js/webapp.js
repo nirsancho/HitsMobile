@@ -354,6 +354,7 @@ app = (function ($, app, document) {
                 $("#dropzone_wrapper > #dz").dropzone({
                     url: "upload.php?page=" + sel,
                     maxFiles: 1,
+                    dictDefaultMessage: "Drop or Click to upload image",
                     dragover: function () {
                         this.removeAllFiles()
                     },
