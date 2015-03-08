@@ -350,13 +350,12 @@ app = (function ($, app, document) {
                     success: function (file) {
                         app.log(file)
                         $("#page-image").val("http://chispacard.es/hits/images/" + file.name)
+                        $("#page-image-preview").attr("src", $("#page-image").val())
                     }
                 });
 
-            });
+                 $("#page-image-preview").attr("src", $("#page-image").val())
 
-            $("#page-image").change(function () {
-                $("#page-image-preview").attr("src", $(this).val())
             });
 
             $selector.trigger("change");
