@@ -346,6 +346,9 @@ app = (function ($, app, document) {
                     maxFiles: 1,
                     dragover: function () {
                         this.removeAllFiles()
+                    },
+                    success: function(file) {
+                     app.log(file)
                     }
                 });
 
