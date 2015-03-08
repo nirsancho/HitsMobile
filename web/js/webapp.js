@@ -355,6 +355,10 @@ app = (function ($, app, document) {
 
             });
 
+            $("#page-image").change(function () {
+                $("#page-image-preview").attr("src", $(this).val())
+            });
+
             $selector.trigger("change");
 
 
