@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/jquery.dataTables.min.css" />
 
 
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+
 </head>
 
 <body style="background: url('css/bg.jpg') no-repeat right top; background-size: cover;">
@@ -120,7 +122,8 @@
             <div data-enhance="false" style="width:100%">
                 <textarea id="page-content" style="width:100%" data-enhance="false"></textarea>
             </div>
-            <div id="dropzone_wrapper"></div>
+            <form action="upload.php" class="dropzone"></form>
+
             <div class="approval-only">
                 <label data-text="approval-question"></label>
                 <input type="text" id="question" />
