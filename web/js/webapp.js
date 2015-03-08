@@ -347,8 +347,9 @@ app = (function ($, app, document) {
                     dragover: function () {
                         this.removeAllFiles()
                     },
-                    success: function(file) {
-                     app.log(file)
+                    success: function (file) {
+                        app.log(file)
+                        $("#page-image").val("http://chispacard.es/hits/images/" + file.name)
                     }
                 });
 
