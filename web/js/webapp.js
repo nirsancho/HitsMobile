@@ -319,7 +319,13 @@ app = (function ($, app, document) {
             $(".nicEdit-panelContain").parent().css("width", "100%").next().css("width", "100%").children().first().css("width", "100%");
 
             $("#page-image").change(function () {
-                $("#page-image-preview").attr("src", $("#page-image").val())
+                var src = $("#page-image").val()
+                $("#page-image-preview").attr("src", src)
+                if (src == "") {
+                    $("#page-image-preview").hide();
+                } else {
+                    $("#page-image-preview").show();
+                }
             });
 
             var $selector = $("#pages");
