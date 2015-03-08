@@ -345,7 +345,7 @@ app = (function ($, app, document) {
 
             $("#dropzone_wrapper").empty()
             $("<div id='dz' class='dropzone'></div>").appendTo("#dropzone_wrapper")
-            $("#dropzone_wrapper > #dz").dropzone({ url: "upload.php" });
+            $("#dropzone_wrapper > #dz").dropzone({ url: "upload.php", maxFiles: 1});
 
             $("#cmd-save").click(function () {
                 var content = app.editor.getContent();
