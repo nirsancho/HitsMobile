@@ -64,6 +64,7 @@
     <script type="text/javascript" charset="utf-8" src="../js/main.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/nicEdit.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/webapp.js"></script>
+    <script src="js/dropzone.js"></script>
 
     <script>
         app.webinit();
@@ -102,7 +103,7 @@
             <label data-text="editor-page-title"></label>
             <input type="text" id="page-title" />
 
-<!--
+            <!--
              <div class="ui-field-contain pages-only" data-role="question" style="border: none" >
                 <label for="q-yes-no" data-text="editor-page-enabled"></label>
                 <select id="editor-page-enabled" name="q-yes-no" data-role="slider" data-mini="true">
@@ -119,6 +120,8 @@
             <div data-enhance="false" style="width:100%">
                 <textarea id="page-content" style="width:100%" data-enhance="false"></textarea>
             </div>
+            <form action="../upload.php" class="dropzone" id="dropzone">
+            </form>
             <div class="approval-only">
                 <label data-text="approval-question"></label>
                 <input type="text" id="question" />
