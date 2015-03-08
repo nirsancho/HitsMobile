@@ -1,6 +1,6 @@
 console.log("main.js")
 console.log(app)
-var g_debug = false;
+var g_debug = true;
 
 function isConnected() {
     app.log("checkConnection()");
