@@ -318,6 +318,10 @@ app = (function ($, app, document) {
             app.editor = nicEditors.findEditor('page-content');
             $(".nicEdit-panelContain").parent().css("width", "100%").next().css("width", "100%").children().first().css("width", "100%");
 
+            $("#page-image").change(function () {
+                $("#page-image-preview").attr("src", $("#page-image").val())
+            });
+
             var $selector = $("#pages");
             $.each(pages, function (index, page) {
                 var o = $("<option></option>").text("Pagina " + (index + 1) + ": " + page.title).attr("data-index", index);
@@ -339,8 +343,8 @@ app = (function ($, app, document) {
                     $(".pages-only").hide();
                 }
 
-                $("#dropzone_wrapper").empty()
-                $("<div id='dz' class='dropzone'></div>").appendTo("#dropzone_wrapper")
+                $("#dropzone_wrapper").empty();
+                $("<div id='dz' class='dropzone'></div>").appendTo("#dropzone_wrapper");
                 $("#dropzone_wrapper > #dz").dropzone({
                     url: "upload.php?page=" + sel,
                     maxFiles: 1,
@@ -350,17 +354,14 @@ app = (function ($, app, document) {
                     success: function (file) {
                         app.log(file)
                         $("#page-image").val("http://chispacard.es/hits/images/" + file.name)
-                        $("#page-image-preview").attr("src", $("#page-image").val())
+                        $("#page-image").trigger('change');
                     }
                 });
-
-                 $("#page-image-preview").attr("src", $("#page-image").val())
+                $("#page-image").trigger('change');
 
             });
 
             $selector.trigger("change");
-
-
 
             $("#cmd-save").click(function () {
                 var content = app.editor.getContent();
