@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.hitsmobile.promo" version="1.0.1" versionCode="2">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.sanxopromo.promo" version="1.0.2" versionCode="3">
 
     <name>Sanxo Promo</name>
 
     <description>
     </description>
 
-    <author href="http://hitsmobile.es" email="">
+    <author href="http://chispacard.es" email="">
     </author>
 
     <preference name="phonegap-version" value="3.6.3" />
