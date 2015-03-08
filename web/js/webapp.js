@@ -276,7 +276,6 @@ app = (function ($, app, document) {
     app.edit_page = function (id, page) {
         $("#page-title").val(page.title || "approval");
         $("#page-image").val(page.image || "");
-        $("#editor-page-enabled").val(page.enabled ? "on" : "off").slider("refresh");
         app.editor.setContent(page.body || "");
 
         app.currentPage = id;
@@ -294,7 +293,7 @@ app = (function ($, app, document) {
             app.log("saving page " + app.currentPage);
             app.content.pages[i].title = $("#page-title").val();
             app.content.pages[i].image = $("#page-image").val();
-            app.content.pages[i].enabled = $("#editor-page-enabled").val() == "on";
+            app.content.pages[i].enabled = true;
             app.content.pages[i].body = content;
         } else {
             app.log("saving approval");
