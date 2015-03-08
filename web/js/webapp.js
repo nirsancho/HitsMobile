@@ -173,7 +173,7 @@ app = (function ($, app, document) {
                     "data": rr,
                     "autoWidth": false,
                     "paging": false,
-                    "pageLength":999999,
+                    "pageLength": 999999,
                     "order": [[4, "desc"]],
                     "columns": [
 
@@ -339,13 +339,21 @@ app = (function ($, app, document) {
                     $(".pages-only").hide();
                 }
 
+                $("#dropzone_wrapper").empty()
+                $("<div id='dz' class='dropzone'></div>").appendTo("#dropzone_wrapper")
+                $("#dropzone_wrapper > #dz").dropzone({
+                    url: "upload.php?page=" + sel,
+                    maxFiles: 1,
+                    dragover: function () {
+                        this.removeAllFiles()
+                    }
+                });
+
             });
 
             $selector.trigger("change");
 
-            $("#dropzone_wrapper").empty()
-            $("<div id='dz' class='dropzone'></div>").appendTo("#dropzone_wrapper")
-            $("#dropzone_wrapper > #dz").dropzone({ url: "upload.php", maxFiles: 1, dragover: function(){this.removeAllFiles()}});
+
 
             $("#cmd-save").click(function () {
                 var content = app.editor.getContent();
