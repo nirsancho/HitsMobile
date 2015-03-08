@@ -344,7 +344,7 @@ app = (function ($, app, document) {
             $selector.trigger("change");
 
             $("#dropzone_wrapper").empty()
-            $("<div id='dz'></div>").appendTo("#dropzone_wrapper")
+            $("<div id='dz' class='dropzone'></div>").appendTo("#dropzone_wrapper")
             $("#dropzone_wrapper > #dz").dropzone({ url: "upload.php" });
 
             $("#cmd-save").click(function () {
