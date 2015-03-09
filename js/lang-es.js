@@ -22,7 +22,7 @@ app = (function (app) {
         "contacts-approval-title": "Compartir con Contactos",
         "contacts-approval-content": "Tus contactos... Compartir?",
 
-        "approval-url": "URL despues de ultima pajina",
+        "approval-url": "URL despues de ultima pagina",
         "approval-question": "Pregunta de aprovar",
         "approval-dialog": "Contenido de dialogo al no aprovar",
         "approval-dialog-title": "Titulo de dialogo al no aprovar",
@@ -32,10 +32,10 @@ app = (function (app) {
         "form-tel": "Telefono Movil",
         "form-coupon":"Código Descuento",
 
-        "editor-page-title": "Titulo de Pajina",
-        "editor-page-content": "Contenido de Pajina",
-        "editor-page-image": "Imajen (URL)",
-        "editor-page-enabled": "Habilitar Pajina",
+        "editor-page-title": "Titulo de Pagina",
+        "editor-page-content": "Contenido de Pagina",
+        "editor-page-image": "Imagen (URL)",
+        "editor-page-enabled": "Habilitar Pagina",
 
         "webapp-contactos": "Ver Contactos",
         "webapp-editor": "Ver Editor",
