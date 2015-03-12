@@ -224,7 +224,7 @@ app = (function ($, app, document) {
         $("[data-text=general-send]", $html).attr("href", "#page-thankyou");
 
         // Thank you page
-        app.content.create_page("page-thankyou", page_thankyou.title, page_thankyou.body, "");
+        app.content.create_page("page-thankyou", page_thankyou.title, page_thankyou.body, page_thankyou.image);
 
         $("body").css("background", "white");
         $.mobile.changePage($("#page-0"));
