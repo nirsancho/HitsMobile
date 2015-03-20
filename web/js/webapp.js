@@ -296,6 +296,7 @@ app = (function ($, app, document) {
             app.content.pages[i].enabled = true;
             app.content.pages[i].body = content;
             $("#pages > option[data-index="+i+"]").text("Pagina " + (i + 1) + ": " + app.content.pages[i].title)
+            $("#pages").selectmenu('refresh');
         } else {
             app.log("saving approval");
             app.content.approval.body = content;
