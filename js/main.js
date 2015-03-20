@@ -173,7 +173,7 @@ app = (function ($, app, document) {
                                 app.log(str);
                                 app.ga.trackEvent(app.log, app.log, "App", "Loaded", "NA", 0);
                                 app_init();
-                            }, app_init, "UA-56920705-2", 5);
+                            }, app_init, "UA-56920705-3", 5);
                         } else {
                             app.log("GA init failed, loading app");
                             app_init();

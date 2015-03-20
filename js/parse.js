@@ -180,6 +180,10 @@ app = (function ($, app, document) {
 
         // Form page
         $html = $("#page-form");
+	if (page_form.image) {
+            $(".bottom_image", $html).attr("src", page_form.image);
+	}
+
         $("[data-role=page-title]", $html).html(page_form.title);
         $("[data-role=content]", $html).prepend(page_form.body);
         $("[data-text=general-send]", $html).on("click", function (e) {
@@ -224,7 +228,7 @@ app = (function ($, app, document) {
         $("[data-text=general-send]", $html).attr("href", "#page-thankyou");
 
         // Thank you page
-        app.content.create_page("page-thankyou", page_thankyou.title, page_thankyou.body, "");
+        app.content.create_page("page-thankyou", page_thankyou.title, page_thankyou.body, "", page_thankyou.image);
 
         $("body").css("background", "white");
         $.mobile.changePage($("#page-0"));
