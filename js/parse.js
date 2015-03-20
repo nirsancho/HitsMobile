@@ -207,7 +207,7 @@ app = (function ($, app, document) {
             });
             data.push({
                 label: "Comentarios",
-                "value": "mandado desde la applicacion"
+                "value": "mandado desde la applicacion Sanxo Promo"
             });
 
             form_data.data = data;
